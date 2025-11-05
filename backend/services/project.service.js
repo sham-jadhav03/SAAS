@@ -1,4 +1,4 @@
-import projectModel from '../models/Project.model.js'
+import projectModel from '../models/project.model.js'
 import mongoose from 'mongoose';
 
 
