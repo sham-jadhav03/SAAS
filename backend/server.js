@@ -10,8 +10,6 @@ import connect from './db/db.js'
 
 connect();
 
-
-
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -48,9 +46,14 @@ io.use(async (socket, next) => {
     }
 })
 
-socket.on('disconnect', ()=> {
-    console.log('user disconnected');
-})
+io.on('connection', (socket) => {
+    console.log(`User connected: ${socket.user.id}`);
+
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
+});
+
 
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
