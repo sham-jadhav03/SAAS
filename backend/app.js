@@ -4,6 +4,7 @@ import morgan from 'morgan';
 import cookieParser  from 'cookie-parser';
 import userRoutes from './routes/user.routes.js';
 import projectRoutes from './routes/project.routes.js'
+import aiRoutes from './routes/ai.routes.js';
 
 
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 // Routes
 app.use('/users', userRoutes);
 app.use('/projects', projectRoutes);
+app.use('/ai', aiRoutes);
 
 app.get('/', (req, res)=>{
     res.send('hello AI');
