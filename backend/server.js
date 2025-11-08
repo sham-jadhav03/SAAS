@@ -21,12 +21,11 @@ const io = new Server(server, {
 io.use(async (socket, next) => {
 
     try {
-
         const token = socket.handshake.auth?.token || socket.handshake.headers.authorization?.split(' ')[1];
         const projectId = socket.handshake.query.projectId;
 
         if (!mongoose.Types.ObjectId.isValid(projectId)) {
-            return next(new Error('Invalid projectId'));
+            return next(new Error('Invalid project ID'))
         }
 
 
@@ -55,16 +54,20 @@ io.use(async (socket, next) => {
 })
 
 io.on('connection', (socket) => {
+
+    socket.roomId = socket.project._id.toString();
+
     console.log(`a user connected`);
-   
-    socket.join(socket.project._id);
+
+    socket.join(socket.roomId);
 
     socket.on('project-message', data => {
-        socket.broadcast.to(socket.project._id).emit('project-message', data);
+        socket.broadcast.to(socket.roomId).emit('project-message', data);
     })
 
     socket.on('disconnect', () => {
         console.log('user disconnected');
+        socket.leave(socket.roomId);
     });
 });
 

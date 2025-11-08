@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../context/user.context'
 import axios from '../config/axios'
 import { initializeSocket, receiveMessage, sendMessage } from '../config/socket'
-import { Socket } from 'socket.io-client'
 
 const Project = () => {
 
@@ -18,7 +17,7 @@ const Project = () => {
   const { user } = useContext(UserContext)
 
   const [users, setUsers] = useState([])
-  const [messages, setMessages] = useState({})
+  const [messages, setMessages] = useState([])
 
   const messageBox = React.createRef()
 
@@ -48,12 +47,15 @@ const Project = () => {
   }
 
   const send = () => {
-    
-   console.log(user._id);
+    console.log(user);
     sendMessage('project-message', {
       message,
       sender: user._id
     })
+
+    setMessages(prevMessages => [...prevMessages, { sender: user, message }]) // Update messages state
+    setMessage("")
+
   }
 
   useEffect(() => {
@@ -61,7 +63,7 @@ const Project = () => {
     initializeSocket(project._id);
 
     receiveMessage('project-message', (data) => {
-      console.log(data);
+      
     });
 
     axios.get(`/projects/get-project/${location.state.project._id}`).then(res => {
@@ -76,6 +78,11 @@ const Project = () => {
     });
   }, []);
 
+  function scrollToBottom() {
+   if (messageBox.current) { // Check if messageBox.current is not null
+      messageBox.current.scrollTop = messageBox.current.scrollHeight
+    }
+  }
 
   // console.log(location.state)
 
