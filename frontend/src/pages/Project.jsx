@@ -4,13 +4,14 @@ import { UserContext } from '../context/user.context'
 import axios from '../config/axios'
 import { initializeSocket, receiveMessage, sendMessage } from '../config/socket'
 import Markdown from 'markdown-to-jsx';
+// import hljs from 'highlight.js';
 
 
 function SyntaxHighlightCode(props) {
   const ref = useRef(null);
 
   React.useEffect(() => {
-    if(ref.current && props.className?.includes('lang-') && window.hljs){
+    if (ref.current && props.className?.includes('lang-') && window.hljs) {
       window.hljs.highlightElement(ref.current);
 
       ref.current.removeAttribute('data-highlighted')
@@ -34,6 +35,9 @@ const Project = () => {
 
   const [users, setUsers] = useState([])
   const [messages, setMessages] = useState([])
+  const [fileTree, setFileTree] = useState([])
+  const [currentFile, setCurrentFile] = useState(null)
+  const [openFiles, setOpenFiles] = useState([])
 
   const messageBox = React.createRef()
 
@@ -119,7 +123,6 @@ const Project = () => {
     }
   }
 
-  // console.log(location.state)
 
   return (
     <main className='h-screen w-screen flex'>
@@ -143,10 +146,10 @@ const Project = () => {
             ref={messageBox}
             className="message-box p-1 flex-grow flex flex-col gap-1 overflow-auto max-h-full scrollbar-hide">
             {messages.map((msg, index) => (
-              <div key={index} className={`${msg.sender && msg.sender._id === 'ai' ? 'max-w-80' : 'max-w-52'} ${msg.sender && msg.sender._id == user._id.toString() && 'ml-auto'}  message flex flex-col p-2 bg-slate-50 w-fit rounded-md`}>
+              <div key={index} className={`${msg.sender?._id === 'ai' ? 'max-w-80' : 'max-w-52'} ${msg.sender?._id == user?._id?.toString() && 'ml-auto'}  message flex flex-col p-2 bg-slate-50 w-fit rounded-md`}>
                 <small className='opacity-65 text-xs'>{msg.sender?.email}</small>
                 <div className='text-sm'>
-                  {msg.sender._id === 'ai' ?
+                  {msg.sender?._id === 'ai' ?
                     WriteAiMessage(msg.message)
                     : <p>{msg.message}</p>}
                 </div>
@@ -201,12 +204,24 @@ const Project = () => {
 
       {/* file section  */}
       <section className='right bg-50 flex-grow h-full flex'>
-        <div className=''>
-          <div>
-            <button>
-              <p className='font-semibold text-lg'>file</p>
-            </button>
+        <div className="explorer h-full max-w-64 min-w-52 bg-slate-200">
+          <div className="file-tree w-full">
+            {
+              Object.keys(fileTree).map((file, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setCurrentFile(file)
+                    setOpenFiles([...new Set([...openFiles, file])])
+                  }}
+                  className="tree-element cursor-pointer p-2 px-4 flex items-center gap-2 bg-slate-300 w-full">
+                  <p
+                    className='font-semibold text-lg'
+                  >{file}</p>
+                </button>))
+            }
           </div>
+
         </div>
       </section>
 
