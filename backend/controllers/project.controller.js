@@ -6,7 +6,7 @@ import *as projectService from '../services/project.service.js'
 
 
 export const createProject = async (req, res) => {
-    
+
 
     const errors = validationResult(req);
 
@@ -54,18 +54,18 @@ export const getAllProject = async (req, res) => {
     }
 }
 
-export const addUserProject = async(req, res) =>{
+export const addUserProject = async (req, res) => {
     const errors = validationResult(req);
-     console.log(errors)
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors: errors.array()});
+    console.log(errors)
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
     }
 
     try {
-        const {projectId, users } = req.body;
+        const { projectId, users } = req.body;
 
         const loggedInUser = await userModel.findOne({
-            email:req.user.email
+            email: req.user.email
         })
 
         const project = await projectService.addUsersToProject({
@@ -77,9 +77,9 @@ export const addUserProject = async(req, res) =>{
         return res.status(200).json({
             project
         })
-    } catch(err){
+    } catch (err) {
         console.log(err)
-        return res.status(400).json({ error: err.message});
+        return res.status(400).json({ error: err.message });
     }
 }
 
@@ -87,15 +87,40 @@ export const getProjectById = async (req, res) => {
 
     const { projectId } = req.params;
 
-    try{
-        const project = await projectService.getProjectById({projectId});
+    try {
+        const project = await projectService.getProjectById({ projectId });
 
         return res.status(200).json({
             project
         })
-    } catch(err){
+    } catch (err) {
         console.log(err);
-        res.status(400).json({error: err.message})
+        res.status(400).json({ error: err.message })
     }
 }
 
+export const updateFileTree = async (req, res) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+
+        const { projectId, fileTree } = req.body;
+
+        const project = await projectService.updateFileTree({
+            projectId,
+            fileTree
+        })
+
+        return res.status(200).json({
+            project
+        })
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).json({ error: err.message })
+    }
+}
