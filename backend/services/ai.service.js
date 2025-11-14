@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_KEY);
 const model = genAI.getGenerativeModel({
-    model: "gemini-2.5-flash",
+    model: "gemini-2.5-flash-lite",
     systemInstruction: `
 You are an expert MERN Stack Developer with over 10 years of hands-on experience in backend and frontend development.
 You always:
@@ -46,7 +46,7 @@ Always respond in **valid JSON** with this structure:
   "fileTree": {
     "app.js": {
       "file": {
-        "contents": "const express = require('express');\\nconst app = express();\\napp.get('/', (req,res)=>res.send('Hello World!'));\\napp.listen(3000, ()=>console.log('Server running on port 3000'));"
+        "contents": "const express = require('express');\\nconst app = express();\\napp.get('/', (req,res)=>res.send('Hello World!'));\\n app.listen(3000, ()=>console.log('Server running on port 3000'));"
       }
     },
     "package.json": {

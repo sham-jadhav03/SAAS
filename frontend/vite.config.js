@@ -11,7 +11,7 @@ export default defineConfig({
     },
     proxy: {
       '/cdn': {
-        target: 'https://unpkg.com/',
+        target: 'https://unpkg.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/cdn/, '')
       }
