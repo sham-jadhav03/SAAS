@@ -5,6 +5,7 @@ import axios from '../config/axios'
 import { initializeSocket, receiveMessage, sendMessage } from '../config/socket'
 import Markdown from 'markdown-to-jsx';
 import * as hljs from "highlight.js";
+import { getWebContainer } from '../config/webContainer'
 
 
 
@@ -103,7 +104,20 @@ const Project = () => {
 
     initializeSocket(project._id);
 
+    if (!webContainer) {
+      getWebContainer().then(container => {
+        setWebContainer(container)
+        console.log("webcontainer started")
+      })
+    }
+
     receiveMessage('project-message', (data) => {
+
+      webContainer.mount(message.fileTree)
+
+      if(message.fileTree){
+        setFileTree(message.fileTree)
+      }
 
       setMessages(prevMessages => [...prevMessages, data]) // Update messages state
 
@@ -234,7 +248,6 @@ const Project = () => {
 
 
         <div className="code-editor flex flex-col flex-grow h-full shrink">
-
           <div className="top flex justify-between w-full">
 
             <div className="files flex">
