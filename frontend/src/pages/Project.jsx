@@ -186,8 +186,8 @@ const Project = () => {
 
   return (
     <main className='h-screen w-screen flex'>
-      <section className="left relative flex flex-col h-screen min-w-96 bg-slate-300">
-        <header className='flex justify-between items-center p-2 px-4 w-full bg-slate-100 absolute z-10 top-0'>
+      <section className="left relative flex flex-col h-screen min-w-96 bg-[#424242]">
+        <header className='flex justify-between items-center p-2 px-4 w-full bg-[#9e9d9d] absolute z-10 top-0'>
           <button className='flex gap-2' onClick={() => setIsModalOpen(true)}>
             <i className="ri-add-fill mr-1"></i>
             <p>Add collaborator</p>
@@ -202,7 +202,7 @@ const Project = () => {
             ref={messageBox}
             className="message-box p-1 flex-grow flex flex-col gap-1 overflow-auto max-h-full scrollbar-hide">
             {messages.map((msg, index) => (
-              <div key={index} className={`${msg?.sender?._id === 'ai' ? 'max-w-80' : 'max-w-52'} ${msg?.sender?._id == user._id.toString() && 'ml-auto'}  message flex flex-col p-2 bg-slate-50 w-fit rounded-md`}>
+              <div key={index} className={`${msg?.sender?._id === 'ai' ? 'max-w-80' : 'max-w-52'} ${msg?.sender?._id == user._id.toString() && 'ml-auto'}  message flex flex-col p-2 bg-slate-300 w-fit rounded-md`}>
                 <small className='opacity-65 text-xs'>{msg?.sender?.email}</small>
                 <div className='text-sm'>
                   {msg?.sender?._id === 'ai' ?
@@ -220,7 +220,7 @@ const Project = () => {
               className='p-2 px-4 border-none outline-none flex-grow' type="text" placeholder='Enter message' />
             <button
               onClick={send}
-              className='px-5 bg-slate-950 text-white'><i className="ri-send-plane-fill"></i></button>
+              className='px-5 bg-slate-800 text-white'><i className="ri-send-plane-fill"></i></button>
           </div>
         </div>
         <div className={`sidePanel w-full h-full flex flex-col gap-2 bg-slate-50 absolute transition-all ${isSidePanelOpen ? 'translate-x-0' : '-translate-x-full'} top-0`}>
@@ -237,7 +237,6 @@ const Project = () => {
           <div className="users flex flex-col gap-2">
 
             {project.users && project.users.map(user => {
-
 
               return (
                 <div className="user cursor-pointer hover:bg-slate-200 p-2 flex gap-2 items-center">
