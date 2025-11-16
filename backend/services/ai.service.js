@@ -3,8 +3,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai"
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_KEY);
 const model = genAI.getGenerativeModel({
-    model: "gemini-2.5-flash-lite",
-    systemInstruction: `
+  model: "gemini-2.5-flash-lite",
+  systemInstruction: `
 You are an expert MERN Stack Developer with over 10 years of hands-on experience in backend and frontend development.
 You always:
 - Write modular, scalable, and maintainable code.
@@ -46,12 +46,12 @@ Always respond in **valid JSON** with this structure:
   "fileTree": {
     "app.js": {
       "file": {
-        "contents": "const express = require('express');\\nconst app = express();\\napp.get('/', (req,res)=>res.send('Hello World!'));\\n app.listen(3000, ()=>console.log('Server running on port 3000'));"
+        "contents": "const express = require('express');\nconst app = express();\napp.get('/', (req,res)=>res.send('Hello World!'));\napp.listen(3000, ()=>console.log('Server running on port 3000'));"
       }
     },
     "package.json": {
       "file": {
-        "contents": "{\\n  \\"name\\": \\"express-server\\",\\n  \\"version\\": \\"1.0.0\\",\\n  \\"dependencies\\": { \\"express\\": \\"^4.21.2\\" }\\n}"
+        "contents": "{\n  \"name\": \"express-server\",\n  \"version\": \"1.0.0\",\n  \"dependencies\": { \"express\": \"^4.21.2\" }\n}"
       }
     }
   },
@@ -82,8 +82,8 @@ Always respond in **valid JSON** with this structure:
 
 export const genarateResult = async (prompt) => {
 
-    const result = await model.generateContent(prompt)
+  const result = await model.generateContent(prompt)
 
-    return result.response.text();
+  return result.response.text();
 }
 

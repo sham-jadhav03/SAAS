@@ -276,7 +276,6 @@ const Project = () => {
 
         </div>
 
-
         <div className="code-editor flex flex-col flex-grow h-full shrink">
 
           <div className="top flex justify-between w-full">
