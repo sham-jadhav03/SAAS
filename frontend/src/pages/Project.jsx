@@ -48,6 +48,7 @@ const Project = () => {
   const [iframeUrl, setIframeUrl] = useState(null)
   const [runProcess, setRunProcess] = useState(null)
 
+  
   const handleUserClick = (id) => {
     setSelectedUserId(prevSelectedUserId => {
       const newSelectedUserId = new Set(prevSelectedUserId);
@@ -59,8 +60,6 @@ const Project = () => {
 
       return newSelectedUserId;
     });
-
-
   }
 
 
@@ -91,7 +90,6 @@ const Project = () => {
   }
 
   function WriteAiMessage(message) {
-
     const messageObject = JSON.parse(message)
 
     return (
@@ -176,9 +174,7 @@ const Project = () => {
       console.log(err)
     })
   }
-
-
-  
+ 
 
   function scrollToBottom() {
     messageBox.current.scrollTop = messageBox.current.scrollHeight
