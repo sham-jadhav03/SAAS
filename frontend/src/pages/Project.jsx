@@ -48,7 +48,7 @@ const Project = () => {
   const [iframeUrl, setIframeUrl] = useState(null)
   const [runProcess, setRunProcess] = useState(null)
 
-  
+
   const handleUserClick = (id) => {
     setSelectedUserId(prevSelectedUserId => {
       const newSelectedUserId = new Set(prevSelectedUserId);
@@ -123,21 +123,37 @@ const Project = () => {
 
       console.log(data)
 
-      if (data?.sender?._id == 'ai') {
+      // Normalize sender, handling potential backend inconsistency
+      const sender = data.sender || data.user
+      data.sender = sender
 
+      if (sender?._id == 'ai') {
 
-        const message = JSON.parse(data.message)
-
-        console.log(message)
-
-        webContainer?.mount(message.fileTree)
-
-        if (message.fileTree) {
-          setFileTree(message.fileTree || {})
+        // Clean up markdown code blocks if present // turbo
+        let validJson = data.message;
+        if (validJson.trim().startsWith('```')) {
+          validJson = validJson.replace(/^```(\w+)?/, '').replace(/```$/, '').trim();
         }
-        setMessages(prevMessages => [...prevMessages, data]) // Update messages state
-      } else {
 
+        try {
+          const message = JSON.parse(validJson)
+
+          console.log(message)
+
+          webContainer?.mount(message.fileTree)
+
+          if (message.fileTree) {
+            setFileTree(message.fileTree || {})
+          }
+
+          // Store the cleaned message so rendering doesn't fail
+          data.message = validJson;
+          setMessages(prevMessages => [...prevMessages, data]) // Update messages state
+        } catch (error) {
+          console.error("Failed to parse AI message", error)
+        }
+
+      } else {
 
         setMessages(prevMessages => [...prevMessages, data]) // Update messages state
       }
@@ -174,7 +190,7 @@ const Project = () => {
       console.log(err)
     })
   }
- 
+
 
   function scrollToBottom() {
     messageBox.current.scrollTop = messageBox.current.scrollHeight

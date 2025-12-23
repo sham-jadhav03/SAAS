@@ -71,21 +71,21 @@ io.on('connection', (socket) => {
         if (aiIsPresentInMessage) {
 
             const prompt = message.replace('@ai', '').trim();
-            
+
             const result = await genarateResult(prompt);
 
             io.to(socket.roomId).emit('project-message', {
                 message: result,
                 user: {
                     _id: 'ai',
-                    email:'AI'
+                    email: 'AI'
                 }
             })
 
             return;
         }
 
-        
+
     })
 
     socket.on('disconnect', () => {
