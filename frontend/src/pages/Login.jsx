@@ -7,12 +7,12 @@ import { UserContext } from '../context/user.context'
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-   
+
     const { setUser } = useContext(UserContext)
 
     const navigate = useNavigate();
 
-  function submitHandler(e) {
+    function submitHandler(e) {
 
         e.preventDefault()
 
@@ -29,7 +29,7 @@ const Login = () => {
         })
     }
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[#232323] to-[#1a1a1a] flex items-center justify-center px-4">
+        <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -87,7 +87,7 @@ const Login = () => {
                                       hover:from-blue-500 hover:to-blue-600
                                         transition-all duration-200 flex items-center justify-center`}
                         >
-                           Login
+                            Login
                         </motion.button>
                     </form>
 
