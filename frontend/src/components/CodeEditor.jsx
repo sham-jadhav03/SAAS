@@ -9,7 +9,7 @@ const CodeEditor = (props) => {
           {props.openFiles.map((file, index) => (
             <button
               key={index}
-              onClick={() => props.setCurrentFile(file)}
+              onClick={() => setCurrentFiles(file)}
               className={`open-file cursor-pointer px-4 flex items-center min-w-fit gap-2 border-r border-gray-800 transition-colors duration-150 relative group 
                 ${props.currentFile === file ? "bg-gray-800 text-white border-t-2 border-t-blue-500" : "bg-gray-900 text-gray-500 hover:bg-gray-800"}`}
             >

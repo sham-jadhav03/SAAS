@@ -45,7 +45,6 @@ const Project = () => {
 
   const [currentFile, setCurrentFile] = useState(null);
   const [openFiles, setOpenFiles] = useState([]);
-  const [closeFiles, setCloseFiles] = useState([]);
 
   const [webContainer, setWebContainer] = useState(null);
   const [iframeUrl, setIframeUrl] = useState(null);
@@ -186,6 +185,8 @@ const Project = () => {
         console.log(err);
       });
   }
+
+  saveFileTree();
 
   function scrollToBottom() {
     messageBox.current.scrollTop = messageBox.current.scrollHeight;
@@ -393,7 +394,6 @@ const Project = () => {
             openFiles={openFiles}
             fileTree={fileTree}
             currentFile={currentFile}
-           setCurrentFile={setCurrentFile}
           />
 
           {/* Preview Iframe */}
