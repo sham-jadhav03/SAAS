@@ -1,12 +1,12 @@
 import 'dotenv/config';
-import app from './app.js';
+import app from './src/app.js';
 import http from 'http';
 import { Server } from 'socket.io'
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-import projectModel from './models/project.model.js'
-import connect from './db/db.js'
-import { genarateResult } from './services/ai.service.js'
+import projectModel from './src/models/project.model.js'
+import connect from './src/config/db.js'
+import { genarateResult } from './src/services/ai.service.js'
 
 
 connect();

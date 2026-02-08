@@ -58,15 +58,15 @@ export const addUsersToProject = async ({ projectId, users, userId }) => {
     }
 
     if (!Array.isArray(users) || users.some(userId => !mongoose.Types.ObjectId.isValid(userId))) {
-         throw new Error('Invalid userId(s) in users array');
+        throw new Error('Invalid userId(s) in users array');
     }
 
     if (!userId) {
         throw new Error('userId is required');
     }
 
-    if(!mongoose.Types.ObjectId.isValid(userId)){
-         throw new Error('Invalid userId');
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+        throw new Error('Invalid userId');
     }
 
     const project = await projectModel.findOne({
@@ -76,10 +76,10 @@ export const addUsersToProject = async ({ projectId, users, userId }) => {
 
     console.log(project)
 
-    if(!project){
+    if (!project) {
         throw new Error('User not belong to this project');
     }
-    
+
     const updatedProject = await projectModel.findOneAndUpdate({
         _id: projectId
     }, {
@@ -91,16 +91,16 @@ export const addUsersToProject = async ({ projectId, users, userId }) => {
     }, {
         new: true
     })
-    
+
     return updatedProject;
 }
 
-export const getProjectById = async ({projectId}) =>{
-    if(!projectId){
+export const getProjectById = async ({ projectId }) => {
+    if (!projectId) {
         throw new Error('projectId id required');
     }
 
-    if(!mongoose.Types.ObjectId.isValid(projectId)){
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
         throw new Error('Invalid projectId');
     }
 
@@ -111,22 +111,22 @@ export const getProjectById = async ({projectId}) =>{
     return project;
 }
 
-export const updateFileTree = async ({projectId, fileTree}) =>{
-    if(!projectId){
+export const updateFileTree = async ({ projectId, fileTree }) => {
+    if (!projectId) {
         throw new Error('projectId id required');
     }
-    if(!mongoose.Types.ObjectId.isValid(projectId)){
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
         throw new Error('Invalid projectId');
     }
-    if(!fileTree){
+    if (!fileTree) {
         throw new Error('fileTree is required');
     }
 
     const project = await projectModel.findOneAndUpdate({
         _id: projectId
-    },{
+    }, {
         fileTree
-    },{
+    }, {
         new: true
     })
 
