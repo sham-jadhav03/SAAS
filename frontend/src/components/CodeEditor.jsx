@@ -9,12 +9,12 @@ const CodeEditor = (props) => {
           {props.openFiles.map((file, index) => (
             <button
               key={index}
-              onClick={() => setCurrentFiles(file)}
+              onClick={() => props.setCurrentFile(file)}
               className={`open-file cursor-pointer px-4 flex items-center min-w-fit gap-2 border-r border-gray-800 transition-colors duration-150 relative group 
                 ${props.currentFile === file ? "bg-gray-800 text-white border-t-2 border-t-blue-500" : "bg-gray-900 text-gray-500 hover:bg-gray-800"}`}
             >
               <p className="font-sans text-sm font-medium">{file}</p>
-               <i className="ri-close-fill pl-0"></i>  
+              <i className="ri-close-fill pl-0"></i>
             </button>
           ))}
         </div>
@@ -37,8 +37,8 @@ const CodeEditor = (props) => {
                         },
                       },
                     };
-                    setFileTree(ft);
-                    saveFileTree(ft);
+                    props.setFileTree(ft);
+                    props.saveFileTree(ft);
                   }}
                   dangerouslySetInnerHTML={{
                     __html: hljs.highlight(

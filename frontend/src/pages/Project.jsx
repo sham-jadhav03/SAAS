@@ -231,13 +231,12 @@ const Project = () => {
                 </small>
 
                 <div
-                  className={`p-3 rounded-2xl shadow-sm text-sm ${
-                    msg?.sender?._id === "ai"
+                  className={`p-3 rounded-2xl shadow-sm text-sm ${msg?.sender?._id === "ai"
                       ? "bg-gray-800 text-gray-100 rounded-tl-none border border-gray-700"
                       : msg?.sender?._id === user._id.toString()
                         ? "bg-blue-600 text-white rounded-tr-none"
                         : "bg-gray-700 text-gray-200 rounded-tl-none"
-                  }`}
+                    }`}
                 >
                   {msg?.sender?._id === "ai" ? (
                     WriteAiMessage(msg.message)
@@ -383,7 +382,7 @@ const Project = () => {
                   <p className="font-sans text-sm font-medium truncate">
                     {file}
                   </p>
-              
+
                 </button>
               ))}
             </div>
@@ -394,6 +393,9 @@ const Project = () => {
             openFiles={openFiles}
             fileTree={fileTree}
             currentFile={currentFile}
+            setCurrentFile={setCurrentFile}
+            setFileTree={setFileTree}
+            saveFileTree={saveFileTree}
           />
 
           {/* Preview Iframe */}
