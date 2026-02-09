@@ -11,6 +11,7 @@ import Markdown from "markdown-to-jsx";
 import hljs from "highlight.js";
 import { getWebContainer } from "../config/webContainer";
 import CodeEditor from "../components/CodeEditor";
+import FileExplorer from "../components/FileExplorer";
 
 function SyntaxHighlightedCode(props) {
   const ref = useRef(null);
@@ -49,6 +50,8 @@ const Project = () => {
   const [webContainer, setWebContainer] = useState(null);
   const [iframeUrl, setIframeUrl] = useState(null);
   const [runProcess, setRunProcess] = useState(null);
+  const [creationMode, setCreationMode] = useState(null);
+  const [newItemName, setNewItemName] = useState("");
 
   const handleUserClick = (id) => {
     setSelectedUserId((prevSelectedUserId) => {
@@ -192,6 +195,23 @@ const Project = () => {
     messageBox.current.scrollTop = messageBox.current.scrollHeight;
   }
 
+  const handleCreateNewItem = () => {
+    if (!newItemName) {
+      setCreationMode(null);
+      return;
+    }
+    const newTree = { ...fileTree };
+    if (creationMode === 'file') {
+      newTree[newItemName] = { file: { contents: '' } };
+    } else if (creationMode === 'folder') {
+      newTree[newItemName] = { directory: {} };
+    }
+    setFileTree(newTree);
+    saveFileTree(newTree);
+    setCreationMode(null);
+    setNewItemName("");
+  };
+
   return (
     <main className="h-screen w-screen flex bg-gray-950">
       {/* Left Pane: Chat & Collaboration */}
@@ -232,10 +252,10 @@ const Project = () => {
 
                 <div
                   className={`p-3 rounded-2xl shadow-sm text-sm ${msg?.sender?._id === "ai"
-                      ? "bg-gray-800 text-gray-100 rounded-tl-none border border-gray-700"
-                      : msg?.sender?._id === user._id.toString()
-                        ? "bg-blue-600 text-white rounded-tr-none"
-                        : "bg-gray-700 text-gray-200 rounded-tl-none"
+                    ? "bg-gray-800 text-gray-100 rounded-tl-none border border-gray-700"
+                    : msg?.sender?._id === user._id.toString()
+                      ? "bg-blue-600 text-white rounded-tr-none"
+                      : "bg-gray-700 text-gray-200 rounded-tl-none"
                     }`}
                 >
                   {msg?.sender?._id === "ai" ? (
@@ -367,26 +387,15 @@ const Project = () => {
 
         <div className="work-area flex flex-grow h-full overflow-hidden">
           {/* File Explorer */}
-          <div className="explorer h-full w-64 border-r border-gray-800 bg-gray-900 flex flex-col">
-            <div className="file-tree w-full p-2 space-y-1">
-              {Object.keys(fileTree).map((file, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setCurrentFile(file);
-                    setOpenFiles([...new Set([...openFiles, file])]);
-                  }}
-                  className={`tree-element cursor-pointer p-2 px-3 flex items-center gap-2 rounded-md w-full text-left transition-all duration-150 ${currentFile === file ? "bg-gray-800 text-white" : "text-gray-400 hover:bg-gray-800/50 hover:text-gray-200"}`}
-                >
-                  <i className="ri-file-code-line text-lg text-blue-400"></i>
-                  <p className="font-sans text-sm font-medium truncate">
-                    {file}
-                  </p>
-
-                </button>
-              ))}
-            </div>
-          </div>
+          <FileExplorer
+            fileTree={fileTree}
+            setCurrentFile={setCurrentFile}
+            setFileTree={setFileTree}
+            saveFileTree={saveFileTree}
+            openFiles={openFiles}
+            creationMode={creationMode}
+            setCreationMode={setCreationMode}
+          />
 
           {/* Code Editor Area */}
           <CodeEditor
