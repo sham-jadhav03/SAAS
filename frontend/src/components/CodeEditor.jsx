@@ -14,7 +14,11 @@ const CodeEditor = (props) => {
                 ${props.currentFile === file ? "bg-gray-800 text-white border-t-2 border-t-blue-500" : "bg-gray-900 text-gray-500 hover:bg-gray-800"}`}
             >
               <p className="font-sans text-sm font-medium">{file}</p>
-              <i className="ri-close-fill pl-0"></i>
+              <i onClick={(e) => {
+                e.stopPropagation();
+                props.deleteItem(file);
+              }}
+                className="ri-close-fill pl-0"></i>
             </button>
           ))}
         </div>

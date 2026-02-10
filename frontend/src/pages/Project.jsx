@@ -212,6 +212,21 @@ const Project = () => {
     setNewItemName("");
   };
 
+  const deleteItem = (itemToDelete) => {
+    const newTree = { ...fileTree };
+    delete newTree[itemToDelete];
+    setFileTree(newTree);
+    saveFileTree(newTree);
+
+    // If the deleted item was open, close it
+    if (openFiles.includes(itemToDelete)) {
+      setOpenFiles(openFiles.filter(f => f !== itemToDelete));
+      if (currentFile === itemToDelete) {
+        setCurrentFile(null);
+      }
+    }
+  };
+
   return (
     <main className="h-screen w-screen flex bg-gray-950">
       {/* Left Pane: Chat & Collaboration */}
@@ -393,18 +408,25 @@ const Project = () => {
             setFileTree={setFileTree}
             saveFileTree={saveFileTree}
             openFiles={openFiles}
+            setOpenFiles={setOpenFiles}
             creationMode={creationMode}
             setCreationMode={setCreationMode}
+            newItemName={newItemName}
+            setNewItemName={setNewItemName}
+            handleCreateNewItem={handleCreateNewItem}
+            deleteItem={deleteItem}
           />
 
           {/* Code Editor Area */}
           <CodeEditor
             openFiles={openFiles}
+            setOpenFiles={setOpenFiles}
             fileTree={fileTree}
             currentFile={currentFile}
             setCurrentFile={setCurrentFile}
             setFileTree={setFileTree}
             saveFileTree={saveFileTree}
+            deleteItem={deleteItem}
           />
 
           {/* Preview Iframe */}
