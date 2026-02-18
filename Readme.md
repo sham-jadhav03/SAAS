@@ -1,4 +1,4 @@
-# SaaS AI Code Editor
+# Codex AI Code Editor
 
 ## 🚀 Overview
 A powerful, full-stack **AI-powered development platform** that enables users to generate, edit, and run code directly in the browser. Built with the **MERN stack**, this application leverages **Google's Gemini AI** for intelligent code generation and **WebContainers** for a seamless, browser-based runtime environment.
@@ -152,4 +152,4 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 ---
 
 ## ⚠️ Disclaimer
-This project is for educational and experimental purposes. The integration with AI services involves data usage policies governed by the respective providers (Google). Ensure you handle API keys securely and do not commit them to public repositories.
+This project is creating exactly same as the saas ai code editor. The integration with AI services involves data usage policies. and google gemini api key is required to run this project.
