@@ -64,14 +64,15 @@ This project combines real-time collaboration, comprehensive project management,
 ```text
 root/
 ├── backend/                # API Server and Logic
-│   ├── controllers/        # Request handlers (user, project, ai)
-│   ├── db/                 # Database connection logic
-│   ├── middleware/         # Auth and validation middleware
-│   ├── models/             # Mongoose schemas (User, Project)
-│   ├── routes/             # API route definitions
-│   ├── services/           # Business logic (AI service, Redis)
-│   ├── app.js              # Express app setup
-│   └── server.js           # Server entry point + Socket.io
+│   ├── src/
+│   │    ├─ controllers/         # Request handlers (user, project, ai)
+│   │    ├── db/                 # Database connection logic
+│   │    ├── middleware/         # Auth and validation middleware
+│   │    ├── models/             # Mongoose schemas (User, Project)
+│   │    ├── routes/             # API route definitions
+│   │    ├── services/           # Business logic (AI service, Redis)
+│   │    ├── app.js              # Express app setup
+│   └── server.js                # Server entry point + Socket.io
 │
 ├── frontend/               # React Application
 │   ├── src/
