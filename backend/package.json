@@ -1,10 +1,10 @@
 {
-  "name": "frontend",
+  "name": "backend",
   "version": "0.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "vite",
+    "dev": "npx nodemon server.js",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"

@@ -1,25 +1,22 @@
 import React, { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from '../config/axios';
-import { UserContext } from '../context/user.context';
+import axios from '../../config/axios'
+import { UserContext } from '../../context/user.context'
 
-
-const Register = () => {
-
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const { setUser } = useContext(UserContext)
 
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
 
     function submitHandler(e) {
 
         e.preventDefault()
 
-        axios.post('/users/register', {
+        axios.post('/users/login', {
             email,
             password
         }).then((res) => {
@@ -29,9 +26,8 @@ const Register = () => {
             navigate('/')
         }).catch((err) => {
             console.log(err)
-        });
+        })
     }
-
     return (
         <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4">
             <motion.div
@@ -42,7 +38,7 @@ const Register = () => {
             >
                 <div className="bg-white/10 backdrop-blur-lg rounded-2xl shadow-xl p-8">
                     <div className="text-center mb-8">
-                        <h2 className="text-3xl font-bold text-white mb-2">Register</h2>
+                        <h2 className="text-3xl font-bold text-white mb-2">Login</h2>
                     </div>
 
                     <form
@@ -83,32 +79,30 @@ const Register = () => {
                             </motion.div>
                         </div>
 
-
-
                         <motion.button
                             whileHover={{ scale: 1.01 }}
                             whileTap={{ scale: 0.99 }}
                             type="submit"
                             className={`w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-lg font-medium shadow-lg 
-                                        hover:from-blue-500 hover:to-blue-600
+                                      hover:from-blue-500 hover:to-blue-600
                                         transition-all duration-200 flex items-center justify-center`}
                         >
-                            Sign In
+                            Login
                         </motion.button>
                     </form>
 
                     <div className="mt-6 text-center">
                         <p className="text-gray-400">
-                            Already have an account?{' '}
-                            <Link to="/login" className="text-blue-500 hover:text-blue-400 transition-colors">
-                                Login
+                            Don't have an account?{' '}
+                            <Link to="/register" className="text-blue-500 hover:text-blue-400 transition-colors">
+                                Sign up
                             </Link>
                         </p>
                     </div>
                 </div>
             </motion.div>
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Login;
