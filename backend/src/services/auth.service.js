@@ -22,5 +22,4 @@ export const getAllUsers = async () => {
         _id: { $ne: null }
     });
 
-    return user;
 }

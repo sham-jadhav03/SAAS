@@ -1,16 +1,11 @@
 import userModel from '../models/user.model.js';
-import * as userService from '../services/user.service.js';
-import { validationResult } from 'express-validator';
-import redisClient from '../services/redis.service.js';
+import * as authService from '../services/auth.service.js';
+import redisClient from '../config/cache.js';
 
 
-export const createUserController = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+export const registerController = async (req, res) => {
     try {
-        const user = await userService.createUser(req.body);
+        const user = await authService.createUser(req.body);
 
         const token = user.generateJWT();
 
@@ -23,11 +18,6 @@ export const createUserController = async (req, res) => {
 }
 
 export const loginController = async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     try {
         const { email, password } = req.body;
         const user = await userModel.findOne({ email }).select('+password');
@@ -88,7 +78,7 @@ export const getAllUsersController = async (req, res) => {
             email: req.user.email
         })
 
-        const allUsers = await userService.getAllUsers({ userId: loggedInUser._id });
+        const allUsers = await authService.getAllUsers({ userId: loggedInUser._id });
 
         return res.status(200).json({
             users: allUsers

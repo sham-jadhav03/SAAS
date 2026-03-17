@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
 import cookieParser  from 'cookie-parser';
-import userRoutes from '../src/routes/user.routes.js';
+import authRoutes from '../src/routes/auth.routes.js';
 import projectRoutes from '../src/routes/project.routes.js'
 import aiRoutes from '../src/routes/ai.routes.js';
 
@@ -18,7 +18,7 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 // Routes
-app.use('/users', userRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/projects', projectRoutes);
 app.use('/ai', aiRoutes);
 
