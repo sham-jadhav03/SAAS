@@ -1,10 +1,10 @@
 import React from 'react'
 import { Route, Routes, BrowserRouter } from 'react-router-dom'
-import Home from '../pages/Home'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
-import Project from '../pages/Project'
-import UserAuth from '../auth/UserAuth'
+import Home from '../features/pages/project/Home'
+import Login from '../features/pages/auth/Login'
+import Register from '../features/pages/auth/Register'
+import Project from '../features/pages/project/Project'
+import UserAuth from '../features/hooks/UserAuth'
 
 
 const AppRoutes = () => {

@@ -8,7 +8,6 @@ import {
   sendMessage,
 } from "../../config/socket";
 import Markdown from "markdown-to-jsx";
-import hljs from "highlight.js";
 import { getWebContainer } from "../../config/webContainer";
 import CodeEditor from "../../components/CodeEditor";
 import FileExplorer from "../../components/FileExplorer";
