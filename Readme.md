@@ -1,93 +1,160 @@
-# Codex AI Code Editor
+<div align="center">
+
+# ✦ Codex AI Code Editor
+
+**A full-stack, AI-powered browser-based development platform.**
+
+*Generate, edit, run, and collaborate on code — all inside your browser.*
+
+[![Node.js](https://img.shields.io/badge/Node.js-v14%2B-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
+[![Express](https://img.shields.io/badge/Express-5.x-000000?style=flat-square&logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=flat-square&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Socket.io](https://img.shields.io/badge/Socket.io-4.x-010101?style=flat-square&logo=socketdotio&logoColor=white)](https://socket.io/)
+[![Google Gemini](https://img.shields.io/badge/Gemini-AI-4285F4?style=flat-square&logo=google&logoColor=white)](https://ai.google.dev/)
+[![Redis](https://img.shields.io/badge/Redis-Cache-DC382D?style=flat-square&logo=redis&logoColor=white)](https://redis.io/)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](https://opensource.org/licenses/ISC)
+
+</div>
+
+---
 
 ## 🚀 Overview
-A powerful, full-stack **AI-powered development platform** that enables users to generate, edit, and run code directly in the browser. Built with the **MERN stack**, this application leverages **Google's Gemini AI** for intelligent code generation and **WebContainers** for a seamless, browser-based runtime environment.
 
-This project combines real-time collaboration, comprehensive project management, and advanced AI assistance into a single, cohesive interface.
+**Codex AI Code Editor** is a powerful, full-stack development environment that runs entirely in the browser. It combines **Google Gemini AI** for intelligent code generation, **WebContainers** for real Node.js execution without leaving the browser, and **Socket.io** for real-time multi-user collaboration — all built on the **MERN stack**.
+
+> Simply describe what you want to build, and the AI generates a complete, runnable project structure for you. Collaborate with teammates in real time, explore the file tree, edit code, and see it run — live.
 
 ---
 
 ## ✨ Key Features
 
-- **🤖 AI-Powered Assistance**: 
-  - Integrated with **Gemini 2.5 Flash Lite** (`@google/genai`).
-  - Supports natural language prompts for code generation and refactoring.
-  - Automatically structures responses into a file tree for the IDE.
-  
-- **⚡ Real-Time Collaboration**: 
-  - Built on **Socket.io** for instant communication and updates.
-  - Live chat and project synchronization across users.
+### 🤖 AI-Powered Code Generation
+- Integrated with **Google Gemini** (`@google/genai` + `@google/generative-ai`)
+- Mention `@ai` in the project chat to trigger AI assistance
+- AI parses natural language prompts and returns a structured **file tree** with complete code
+- Responses are rendered with **syntax highlighting** (via `highlight.js`) and **Markdown** (via `markdown-to-jsx`)
 
-- **🛠️ In-Browser Execution**: 
-  - Uses **WebContainers** (`@webcontainer/api`) to run Node.js applications directly in the browser.
-  - Provides a complete filesystem emulation.
+### ⚡ Real-Time Collaboration
+- Powered by **Socket.io** (v4) — users in the same project share a real-time room
+- Project chat with live message broadcasting
+- AI responses are emitted to all connected users simultaneously
 
-- **🔐 Secure Authentication**: 
-  - **JWT (JsonWebToken)** based authentication.
-  - Protected routes and persistent sessions using cookies.
+### 🖥️ In-Browser Code Execution
+- Uses **WebContainers** (`@webcontainer/api`) to run a full Node.js environment in the browser
+- Live terminal output and filesystem emulation — no server-side sandbox needed
+- Integrated **File Explorer** and **Code Editor** components for intuitive navigation
 
-- **📂 Project Management**: 
-  - Create, organize, and manage multiple coding projects.
-  - dedicated workspaces for each project.
+### 🔐 Secure Authentication
+- **JWT (JsonWebToken)** based stateless auth with `bcrypt` password hashing
+- Persistent sessions via **HTTP-only cookies** and `cookie-parser`
+- Input validation via `express-validator`
+- Protected API routes and Socket.io middleware
 
-- **🎨 Modern UI/UX**: 
-  - Responsive and animated interface using **React**, **Tailwind CSS**, and **Framer Motion**.
-  - Syntax highlighting with `highlight.js`.
-  - Markdown rendering support.
+### 📂 Project Management
+- Create and manage multiple coding projects per user
+- Each project has its own isolated workspace, file tree, and collaboration room
+- Add/remove collaborators to shared projects
+
+### 🎨 Modern UI/UX
+- Built with **React 19** + **Vite** for blazing-fast HMR
+- Styled with **Tailwind CSS v3** and **PostCSS**
+- Smooth transitions with **Framer Motion**
+- Icons from **Remix Icon**
+- Responsive design with a clean, dark-themed aesthetic
 
 ---
 
 ## 🏗️ Technology Stack
 
-### **Frontend**
-- **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [PostCSS](https://postcss.org/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **State/API**: [Axios](https://axios-http.com/)
-- **Runtime**: [WebContainers](https://webcontainers.io/)
-- **Icons**: [Remix Icon](https://remixicon.com/)
-- **Utilities**: `markdown-to-jsx`, `highlight.js`
+### Frontend
 
-### **Backend**
-- **Runtime**: [Node.js](https://nodejs.org/)
-- **Framework**: [Express.js](https://expressjs.com/)
-- **Database**: [MongoDB](https://www.mongodb.com/) + [Mongoose](https://mongoosejs.com/)
-- **Real-Time**: [Socket.io](https://socket.io/)
-- **AI Integration**: [Google Generative AI SDK](https://www.npmjs.com/package/@google/generative-ai)
-- **Security**: `bcrypt`, `jsonwebtoken`, `express-validator`
-- **Cache/Queue**: [Redis](https://redis.io/) (`ioredis`)
+| Technology | Purpose |
+|---|---|
+| [React 19](https://react.dev/) + [Vite](https://vitejs.dev/) | UI framework & dev server |
+| [Tailwind CSS v3](https://tailwindcss.com/) | Utility-first styling |
+| [Framer Motion](https://www.framer.com/motion/) | Animations & transitions |
+| [Socket.io Client](https://socket.io/) | Real-time communication |
+| [WebContainers API](https://webcontainers.io/) | In-browser Node.js runtime |
+| [Axios](https://axios-http.com/) | HTTP requests |
+| [React Router DOM v7](https://reactrouter.com/) | Client-side routing |
+| [highlight.js](https://highlightjs.org/) | Syntax highlighting |
+| [markdown-to-jsx](https://www.npmjs.com/package/markdown-to-jsx) | Markdown rendering |
+| [Remix Icon](https://remixicon.com/) | Icon library |
+
+### Backend
+
+| Technology | Purpose |
+|---|---|
+| [Node.js](https://nodejs.org/) + [Express 5](https://expressjs.com/) | REST API server |
+| [MongoDB](https://www.mongodb.com/) + [Mongoose](https://mongoosejs.com/) | Database & ODM |
+| [Socket.io](https://socket.io/) | WebSocket server for real-time events |
+| [Google Generative AI SDK](https://www.npmjs.com/package/@google/generative-ai) | Gemini AI integration |
+| [Redis](https://redis.io/) (`ioredis`) | Caching layer |
+| [jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken) | JWT authentication |
+| [bcrypt](https://www.npmjs.com/package/bcrypt) | Password hashing |
+| [express-validator](https://express-validator.github.io/) | Input validation |
+| [Morgan](https://www.npmjs.com/package/morgan) | HTTP request logging |
+| [dotenv](https://www.npmjs.com/package/dotenv) | Environment variable management |
 
 ---
 
-## 📂 Folder Structure
+## 📂 Project Structure
 
-```text
-root/
-├── backend/                # API Server and Logic
+```
+saas/
+├── backend/
 │   ├── src/
-│   │    ├─ controllers/         # Request handlers (user, project, ai)
-│   │    ├── db/                 # Database connection logic
-│   │    ├── middleware/         # Auth and validation middleware
-│   │    ├── models/             # Mongoose schemas (User, Project)
-│   │    ├── routes/             # API route definitions
-│   │    ├── services/           # Business logic (AI service, Redis)
-│   │    ├── app.js              # Express app setup
-│   └── server.js                # Server entry point + Socket.io
+│   │   ├── config/              # Database connection (db.js)
+│   │   ├── controllers/
+│   │   │   ├── ai.controller.js       # AI prompt handler
+│   │   │   ├── auth.controller.js     # Register / Login / Logout / Profile
+│   │   │   └── project.controller.js  # CRUD + collaborator management
+│   │   ├── middleware/          # JWT auth middleware
+│   │   ├── models/
+│   │   │   ├── user.model.js          # User schema (Mongoose)
+│   │   │   └── project.model.js       # Project schema with collaborators
+│   │   ├── routes/
+│   │   │   ├── auth.routes.js         # /api/auth/*
+│   │   │   ├── project.routes.js      # /api/project/*
+│   │   │   └── ai.routes.js           # /api/ai/*
+│   │   ├── services/
+│   │   │   ├── ai.service.js          # Gemini AI generation logic
+│   │   │   ├── auth.service.js        # Auth business logic
+│   │   │   └── project.service.js     # Project business logic
+│   │   ├── validators/          # express-validator rule sets
+│   │   └── app.js               # Express app setup & middleware
+│   ├── server.js                # HTTP server + Socket.io setup
+│   └── package.json
 │
-├── frontend/               # React Application
+├── frontend/
 │   ├── src/
-│   │   ├── auth/           # Authentication related components
-│   │   ├── components/     # Reusable UI components
-│   │   ├── config/         # Configuration files
-│   │   ├── context/        # React Context (User state)
-│   │   ├── pages/          # Application pages (Home, Project, Login)
-│   │   ├── routes/         # Frontend routing
-│   │   ├── App.jsx         # Main App component
-│   │   └── main.jsx        # Entry point
-│   ├── public/             # Static assets
-│   └── vite.config.js      # Vite configuration
+│   │   ├── features/
+│   │   │   ├── components/
+│   │   │   │   ├── CodeEditor.jsx      # Monaco-style code editor
+│   │   │   │   └── FileExplorer.jsx    # Project file tree navigator
+│   │   │   ├── context/               # React Context (User state)
+│   │   │   ├── hooks/                 # Custom React hooks
+│   │   │   ├── pages/
+│   │   │   │   ├── auth/
+│   │   │   │   │   ├── Login.jsx       # Login page
+│   │   │   │   │   └── Register.jsx    # Registration page
+│   │   │   │   └── project/
+│   │   │   │       ├── Home.jsx        # Project dashboard
+│   │   │   │       ├── Project.jsx     # Main project IDE view
+│   │   │   │       └── CodeReview.jsx  # Code review panel
+│   │   │   ├── services/              # API service helpers
+│   │   │   └── config/                # Frontend config (API base URL, etc.)
+│   │   ├── routes/              # React Router route definitions
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── public/                  # Static assets (logos, icons)
+│   ├── index.html
+│   ├── vite.config.js
+│   ├── tailwind.config.js
+│   └── package.json
 │
-└── Readme.md               # Project Documentation
+└── Readme.md
 ```
 
 ---
@@ -95,62 +162,143 @@ root/
 ## ⚙️ Installation & Setup
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [MongoDB](https://www.mongodb.com/) (Local or Atlas)
-- Google AI API Key (Gemini)
+
+Make sure you have the following installed:
+
+- [Node.js](https://nodejs.org/) **v14 or higher** (`node -v`)
+- [npm](https://www.npmjs.com/) v8+ (bundled with Node.js)
+- [MongoDB](https://www.mongodb.com/) (local installation or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) free tier)
+- [Redis](https://redis.io/) (local or [Upstash](https://upstash.com/) free tier)
+- A **Google Gemini API Key** — get one free at [ai.google.dev](https://ai.google.dev/)
+
+---
 
 ### 1. Clone the Repository
+
 ```bash
 git clone <repository-url>
 cd saas
 ```
 
+---
+
 ### 2. Backend Setup
-Navigate to the backend directory and install dependencies:
+
 ```bash
 cd backend
 npm install
 ```
 
-Create a `.env` file in the `backend` folder with the following variables:
+Create a `.env` file inside the `backend/` directory:
+
 ```env
+# Server
 PORT=3000
-MONGO_URI=mongodb://localhost:27017/saas-db
-JWT_SECRET=your_super_secret_key
+
+# Database
+MONGO_URI=mongodb://localhost:27017/codex-ai-db
+
+# Auth
+JWT_SECRET=your_super_secret_jwt_key
+
+# Google Gemini AI
 GOOGLE_AI_KEY=your_gemini_api_key
+
+# Redis
 REDIS_HOST=localhost
 REDIS_PORT=6379
 REDIS_PASSWORD=your_redis_password
 ```
 
 Start the backend server:
+
 ```bash
+# Development (with auto-reload via nodemon)
 npm run dev
-# or
+
+# Production
 node server.js
 ```
 
-### 3. Frontend Setup
-Open a new terminal, navigate to the frontend directory, and install dependencies:
-```bash
-cd ../frontend
-npm install
-```
-
-Start the frontend development server:
-```bash
-npm run dev
-```
-
-The application should now be running at `http://localhost:5173`.
+> The backend will start at `http://localhost:3000`
 
 ---
 
-## 🤝 Contribution
+### 3. Frontend Setup
 
-Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
+Open a **new terminal** and run:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+> The frontend will start at **`http://localhost:5173`**
+
+---
+
+### 4. Open the App
+
+Navigate to `http://localhost:5173` in your browser.
+
+1. **Register** a new account
+2. **Create a project** from the Home dashboard
+3. In the project workspace, type `@ai <your prompt>` in the chat to generate code
+4. Browse the generated **file tree**, open files in the **code editor**, and run the project in the **WebContainer terminal**
+
+---
+
+## 🔌 API Endpoints
+
+### Auth Routes — `/api/auth`
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/register` | Register a new user |
+| `POST` | `/login` | Log in and receive a JWT cookie |
+| `GET` | `/logout` | Clear the auth cookie and log out |
+| `GET` | `/profile` | Get the logged-in user's profile |
+
+### Project Routes — `/api/project`
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/create` | Create a new project |
+| `GET` | `/all` | Get all projects for the current user |
+| `GET` | `/:projectId` | Get a single project by ID |
+| `PUT` | `/add-user` | Add a collaborator to a project |
+
+### AI Routes — `/api/ai`
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/get-result` | Send a prompt and receive an AI-generated file tree |
+
+---
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature-name`
+3. Commit your changes: `git commit -m "feat: add your feature"`
+4. Push to the branch: `git push origin feature/your-feature-name`
+5. Open a **Pull Request**
+
+Please follow conventional commit messages and ensure your code passes linting before submitting.
 
 ---
 
 ## ⚠️ Disclaimer
-This project is creating exactly same as the saas ai code editor. The integration with AI services involves data usage policies. and google gemini api key is required to run this project.
+
+This project is a personal/educational implementation of an AI-powered code editor, inspired by similar SaaS development tools. It uses **Google Gemini API** for AI features — a valid API key is **required** for the AI functionality to work. Usage of the Gemini API is subject to [Google's Terms of Service](https://ai.google.dev/terms) and data usage policies.
+
+---
+
+<div align="center">
+
+Made with ❤️ using the MERN Stack + Google Gemini AI
+
+</div>
